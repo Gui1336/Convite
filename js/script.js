@@ -33,6 +33,22 @@ function initializeEnvelopeInteraction() {
         }
     }, { passive: false });
 
+    // Prevent all scroll behaviors when envelope is open
+    $valentines.on('scroll', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+            this.scrollTop = 0;
+        }
+    });
+
+    // Prevent default scroll on the document when envelope is open
+    $(document).on('scroll touchmove wheel', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+            window.scrollTo(0, 0);
+        }
+    });
+
     // Open envelope on click
     $valentines.on('click', function(event) {
         // Prevent button click from triggering envelope click
