@@ -19,6 +19,20 @@ function initializeEnvelopeInteraction() {
     const $clickIndicator = $('.click-indicator');
     const $closeCardButton = $('#closeCardButton');
 
+    // Prevent default scroll behavior when envelope is open
+    $valentines.on('touchmove', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    // Prevent mouse wheel scroll when envelope is open
+    $valentines.on('wheel', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
     // Open envelope on click
     $valentines.on('click', function(event) {
         // Prevent button click from triggering envelope click
