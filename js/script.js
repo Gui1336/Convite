@@ -52,10 +52,20 @@ function initializeEnvelopeInteraction() {
     // Mobile-specific touch handling
     let touchStartY = 0;
     let touchEndY = 0;
+    let isScrolling = false;
 
+    // Prevent all touch events on the body when envelope is open
+    $('body').on('touchmove', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+        }
+    }, { passive: false });
+
+    // Prevent pull-to-refresh and other gestures
     $valentines.on('touchstart', function(event) {
         if ($valentines.hasClass('open')) {
             touchStartY = event.touches[0].clientY;
+            isScrolling = false;
         }
     }, { passive: true });
 
@@ -64,9 +74,12 @@ function initializeEnvelopeInteraction() {
             touchEndY = event.touches[0].clientY;
             const touchDiff = touchEndY - touchStartY;
             
-            // Prevent any touch movement that could cause scroll
-            if (Math.abs(touchDiff) > 0) {
-                event.preventDefault();
+            // Prevent any touch movement
+            event.preventDefault();
+            
+            // If movement is significant, mark as scrolling
+            if (Math.abs(touchDiff) > 5) {
+                isScrolling = true;
             }
         }
     }, { passive: false });
@@ -75,8 +88,16 @@ function initializeEnvelopeInteraction() {
         if ($valentines.hasClass('open')) {
             touchStartY = 0;
             touchEndY = 0;
+            isScrolling = false;
         }
     }, { passive: true });
+
+    // Prevent any scroll events on the window when envelope is open
+    $(window).on('scroll', function(event) {
+        if ($valentines.hasClass('open')) {
+            window.scrollTo(0, 0);
+        }
+    });
 
     // Open envelope on click
     $valentines.on('click', function(event) {
