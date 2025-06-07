@@ -49,6 +49,35 @@ function initializeEnvelopeInteraction() {
         }
     });
 
+    // Mobile-specific touch handling
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    $valentines.on('touchstart', function(event) {
+        if ($valentines.hasClass('open')) {
+            touchStartY = event.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    $valentines.on('touchmove', function(event) {
+        if ($valentines.hasClass('open')) {
+            touchEndY = event.touches[0].clientY;
+            const touchDiff = touchEndY - touchStartY;
+            
+            // Prevent any touch movement that could cause scroll
+            if (Math.abs(touchDiff) > 0) {
+                event.preventDefault();
+            }
+        }
+    }, { passive: false });
+
+    $valentines.on('touchend', function(event) {
+        if ($valentines.hasClass('open')) {
+            touchStartY = 0;
+            touchEndY = 0;
+        }
+    }, { passive: true });
+
     // Open envelope on click
     $valentines.on('click', function(event) {
         // Prevent button click from triggering envelope click
