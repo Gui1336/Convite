@@ -174,7 +174,7 @@ body {
   height: 85vh;
   border-radius: 20px;
   opacity: 0;
-  transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   z-index: 1000;
   overflow: hidden;
 }
@@ -214,6 +214,9 @@ body {
   padding: 0;
   -webkit-user-drag: none;
   user-select: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.4s;
 }
 
 /* Customize scrollbar for the card scroll container */
@@ -536,6 +539,11 @@ body {
   transform: translate(-50%, -50%) scale(1) rotateY(0deg);
   opacity: 1;
   overflow-y: auto;
+}
+
+.valentines.open .card-image {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card-buttons {

@@ -149,48 +149,83 @@ function initializeEnvelopeInteraction() {
 
     // Functions for opening and closing
     function openEnvelope() {
-        const $button = $('#openEnvelopeButton'); // Old button - keep for reference if needed elsewhere, but its direct click handler is removed
+        const $button = $('#openEnvelopeButton');
         const $valentines = $('.valentines');
         const $clickIndicator = $('.click-indicator');
         const $closeCardButton = $('#closeCardButton');
+        const $cardImage = $('.card-image');
 
-        $valentines.addClass('open');
-        
-        // Hide old button, show new one (CSS handles hiding old wrapper)
-        $closeCardButton.show(); // Make sure it's visible when card is open
+        // Bloquear scroll do documento
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
 
+        // Primeiro, escondemos o indicador de clique
         $clickIndicator.fadeOut(300);
-        
-        // Add focus to card for accessibility
+
+        // Adicionamos a classe open com um pequeno delay
         setTimeout(() => {
-            $('.card').attr('tabindex', '0').focus();
-        }, 700);
+            $valentines.addClass('open');
+            
+            // Mostramos o botão de fechar
+            $closeCardButton.show();
+
+            // Adicionamos focus ao card para acessibilidade
+            setTimeout(() => {
+                $('.card').attr('tabindex', '0').focus();
+            }, 1200);
+        }, 100);
 
         // Track interaction
         trackEvent('envelope_opened');
     }
 
     function closeEnvelope() {
-        const $button = $('#openEnvelopeButton'); // Old button
+        const $button = $('#openEnvelopeButton');
         const $valentines = $('.valentines');
         const $clickIndicator = $('.click-indicator');
         const $closeCardButton = $('#closeCardButton');
 
+        // Restaurar scroll do documento
+        const scrollY = document.body.style.top;
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+
         $valentines.removeClass('open');
         
-        // Hide new button
+        // Escondemos o botão de fechar
         $closeCardButton.hide();
 
+        // Mostramos o indicador de clique após a animação de fechamento
         setTimeout(() => {
             $clickIndicator.fadeIn(300);
             
-            // Return focus to envelope
+            // Retornamos o focus para o envelope
             $valentines.focus();
-        }, 400);
+        }, 1200);
 
         // Track interaction
         trackEvent('envelope_closed');
     }
+
+    // Prevent all touch events when envelope is open
+    $valentines.on('touchstart touchmove touchend', function(event) {
+        if ($valentines.hasClass('open')) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }, { passive: false });
+
+    // Prevent all scroll events when envelope is open
+    $(window).on('scroll', function(event) {
+        if ($valentines.hasClass('open')) {
+            window.scrollTo(0, 0);
+        }
+    });
 }
 
 // ===== MODAL FUNCTIONALITY =====
