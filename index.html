@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Chá de Casa Nova - Geovana & Guilherme</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <div class="floating-heart heart-1"><i class="fas fa-heart"></i></div>
+        <div class="floating-heart heart-2"><i class="fas fa-heart"></i></div>
+        <div class="floating-heart heart-3"><i class="fas fa-heart"></i></div>
+        <div class="floating-house house-1"><i class="fas fa-home"></i></div>
+        <div class="floating-house house-2"><i class="fas fa-home"></i></div>
+    </div>
+
+    <div class="container">
+        <!-- Envelope Interactive -->
+        <div class="valentines">
+            <div class="click-indicator">
+                <span class="click-text">Clique para abrir</span>
+            </div>
+            
+            <div class="envelope">
+                <div class="envelope-seal">
+                    <i class="fas fa-home"></i>
+                </div>
+            </div>
+            
+            <div class="front"></div>
+            
+            <!-- Card Content -->
+            <div class="card">
+                <div class="card-inner">
+                    <button id="closeCardButton" class="close-card-btn"><i class="fas fa-times"></i></button>
+                    <div class="card-scroll-container">
+                        <img src="images/invitation_card_image.png" alt="Invitation Card Design" class="card-image">
+                        <div class="card-buttons">
+                            <button id="locationButton" class="invisible-btn location-btn"></button>
+                            <button id="giftListButton" class="invisible-btn gift-btn"></button>
+                            <button id="confirmButton" class="invisible-btn confirm-btn"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shadow -->
+        <div class="shadow"></div>
+
+        <!-- Close Button -->
+        <div class="button-wrapper">
+            <button id="openEnvelopeButton">
+                <i class="fas fa-envelope-open"></i>
+                <span>Fechar Convite</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal for Location -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-map-marker-alt"></i> Localização do Evento</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="address-info">
+                    <p><strong>Endereço:</strong></p>
+                    <p>Rua Estado do Ceará, 999<br>
+                    Jardim Novo São Pedro - Salto/SP<br>
+                </div>
+                <div class="map-buttons">
+                    <button class="modal-btn" onclick="openGoogleMaps()">
+                        <i class="fab fa-google"></i> Abrir no Google Maps
+                    </button>
+                    <button class="modal-btn" onclick="openWaze()">
+                        <i class="fab fa-waze"></i> Abrir no Waze
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Gift List -->
+    <div id="giftModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-gift"></i> Lista de Presentes</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="gift-categories">
+                    <div class="gift-category">
+                        <h4><i class="fas fa-utensils"></i> Cozinha</h4>
+                        <ul>
+                            <li>Jogo de panelas antiaderente</li>
+                            <li>Liquidificador</li>
+                            <li>Cafeteira elétrica</li>
+                            <li>Jogo de pratos</li>
+                            <li>Talheres</li>
+                        </ul>
+                    </div>
+                    <div class="gift-category">
+                        <h4><i class="fas fa-bed"></i> Casa</h4>
+                        <ul>
+                            <li>Jogo de cama casal</li>
+                            <li>Toalhas de banho</li>
+                            <li>Aspirador de pó</li>
+                            <li>Tapete para sala</li>
+                            <li>Cortinas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gift-links">
+                    <button class="modal-btn primary" onclick="openGiftList()">
+                        <i class="fas fa-external-link-alt"></i> Ver Lista Completa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
